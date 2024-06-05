@@ -13,11 +13,11 @@ var isFunction = require('./helpers').isFunction;
 var isString = require('./helpers').isString;
 var isNumber = require('./helpers').isNumber;
 var isBoolean = require('./helpers').isBoolean;
-var isArray = require('./helpers').isArray;
 var isUndefined = require('./helpers').isUndefined;
 var isPattern = require('./helpers').isPattern;
 var getPattern = require('./helpers').getPattern;
 var SVGtoPDF = require('./3rd-party/svg-to-pdfkit');
+var fixPageMargins = require('./helpers').fixPageMargins;
 
 var findFont = function (fonts, requiredFonts, defaultFont) {
 	for (var i = 0; i < requiredFonts.length; i++) {
@@ -266,22 +266,6 @@ function fixPageSize(pageSize, pageOrientation) {
 	}
 	size.orientation = size.width > size.height ? 'landscape' : 'portrait';
 	return size;
-}
-
-function fixPageMargins(margin) {
-	if (isNumber(margin)) {
-		margin = { left: margin, right: margin, top: margin, bottom: margin };
-	} else if (isArray(margin)) {
-		if (margin.length === 2) {
-			margin = { left: margin[0], top: margin[1], right: margin[0], bottom: margin[1] };
-		} else if (margin.length === 4) {
-			margin = { left: margin[0], top: margin[1], right: margin[2], bottom: margin[3] };
-		} else {
-			throw 'Invalid pageMargins definition';
-		}
-	}
-
-	return margin;
 }
 
 function registerDefaultTableLayouts(layoutBuilder) {

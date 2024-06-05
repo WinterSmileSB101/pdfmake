@@ -108,6 +108,22 @@ function getPattern(color, patterns) {
 	return [patterns[color[0]], color[1]];
 }
 
+function fixPageMargins(margin) {
+	if (isNumber(margin)) {
+		margin = { left: margin, right: margin, top: margin, bottom: margin };
+	} else if (isArray(margin)) {
+		if (margin.length === 2) {
+			margin = { left: margin[0], top: margin[1], right: margin[0], bottom: margin[1] };
+		} else if (margin.length === 4) {
+			margin = { left: margin[0], top: margin[1], right: margin[2], bottom: margin[3] };
+		} else {
+			throw 'Invalid pageMargins definition';
+		}
+	}
+
+	return margin;
+}
+
 module.exports = {
 	isString: isString,
 	isNumber: isNumber,
@@ -122,5 +138,6 @@ module.exports = {
 	offsetVector: offsetVector,
 	getNodeId: getNodeId,
 	isPattern: isPattern,
-	getPattern: getPattern
+	getPattern: getPattern,
+	fixPageMargins: fixPageMargins,
 };

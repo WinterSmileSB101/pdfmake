@@ -726,7 +726,6 @@ function generateFrame(data, options) {
 
 	if (mask != -1 && (mask < 0 || mask > 8))
 		throw 'invalid mask';
-	//console.log('version:', ver, 'mode:', mode, 'ECC:', ecclevel, 'mask:', mask )
 	return generate(data, ver, mode, ecclevel, mask);
 }
 
